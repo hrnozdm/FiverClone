@@ -1,6 +1,7 @@
 // SimpleSlider.jsx
 import React from 'react';
 import Slider from 'react-slick';
+import { Link } from 'react-router-dom';
 import { cards } from '../../data';
 
 const SimpleSlider = () => {
@@ -41,7 +42,9 @@ const SimpleSlider = () => {
   };
 
   return (
-    <div className="slider-container mt-5">
+   
+    <Link to="/gigs">
+     <div className="slider-container mt-5">
       <Slider {...settings} className="rounded-lg overflow-hidden">
         {cards.map((card) => (
           <div key={card.id} className="px-4 bg-white shadow-lg rounded-md">
@@ -52,6 +55,8 @@ const SimpleSlider = () => {
         ))}
       </Slider>
     </div>
+    </Link>
+   
   );
 };
 
