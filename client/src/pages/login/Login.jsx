@@ -1,18 +1,36 @@
 import React,{useState} from 'react';
 import api from '../../api/api';
-
+import { useNavigate } from 'react-router-dom';
 const Login = () => {
   const [username, setuserName] = useState('');
   const [password, setPassword] = useState('');
+  const [err, setErr] = useState('');
+
+  const navigate=useNavigate();
   
-  const handleClick=async ()=>{
+  const handleClick= async ()=>{
      
       try {
-          const response=await api.get('/auth/login',{username: username,password:password});
-          console.log(response.data);
+           
+      if (username && password){
+            const response=await api.post('/auth/login',{username: username,password:password});
+            localStorage.setItem("currentUser",JSON.stringify(response.data));
+            if (response.data){
+              navigate('/');
+            }
+      }
+
+      else{
+         setErr('Lütfen Tüm alanları doldurunuz');
+
+      }
+
+         
       } catch (error) {
-        console.log(error.data);
-        throw error;
+        if (error.response.status === 401) {
+          setErr('Kullanıcı adı veya şifre hatalı. Lütfen tekrar deneyin.');
+        }
+        
       }
 
   }
@@ -52,6 +70,8 @@ const Login = () => {
             onChange={(e)=>setPassword(e.target.value)}
           />
         </div>
+
+        {err && <p className="text-red-500 mb-4">{err}</p>}
 
         <button
           className="w-full bg-green-500 text-white py-3 px-3 rounded-md hover:bg-green-600 focus:outline-none focus:shadow-outline-blue mt-3"

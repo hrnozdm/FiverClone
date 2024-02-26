@@ -21,7 +21,7 @@ class AuthController{
               const user=await User.findOne({username:req.body.username});
               
               if (!user){
-                return res.status(404).json({'msg':'Böyle bir kişi bulunamadı'});
+                return res.status(401).json({'msg':'Böyle bir kişi bulunamadı'});
               }
               
               const jwtKey:any=process.env.JWT_KEY;
@@ -30,7 +30,7 @@ class AuthController{
               if (user){
                     const matchPass=await bcrypt.compare(req.body.password,user.password);
                     if (matchPass){
-                        res.cookie("accessToken",token,{httpOnly:true}).status(200).json({'msg':'Giriş başarılı'});
+                        res.cookie("accessToken",token,{httpOnly:true}).status(200).json({'msg':'Giriş başarılı',user});
                     }
                     else{
                       res.status(401).json({'msg':'Hatalı şifre'});
