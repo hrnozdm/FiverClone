@@ -52,10 +52,12 @@ const Navbar = () => {
                     <span>Explore</span>
                     <span>English</span>
                     <Link to="/login">
-                        <span>Sign In</span>
+                        <span>Oturum Aç</span>
                     </Link>
                     {!currentUser?.user?.isSeller && <span>Become a Seller</span>}
-                    {!currentUser && <button type='submit' className='border px-4 py-1 rounded-md hover:bg-green-600'>Join</button>}
+                    <Link to="/register">
+                    {!currentUser && <button type='submit' className='border px-4 py-1 rounded-md hover:bg-green-600'>Bize Katılın</button>}
+                    </Link>
                     {currentUser && (
                         <div className='user flex items-center relative cursor-pointer'>
                             <img src={currentUser?.user?.img || "/images/noavatar.jpg"} alt="" width={30} height={30} className='rounded-full bg-cover'  onClick={()=>onChangeDropDown()}/>
