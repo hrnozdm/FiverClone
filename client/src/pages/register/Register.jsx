@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import api from "../../api/api";
 import { useNavigate } from 'react-router-dom';
+import AlertPopup from "../../components/alert/Alert";
 
 const Register = () => {
 
@@ -18,7 +19,11 @@ const Register = () => {
     img: '',
   });
 
-  
+  const [alert, setalert] = useState(null);
+
+  const handleCloseAlert = () => {
+    setalert(null);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,7 +36,18 @@ const Register = () => {
   };
 
   const handleSubmit = async () => {
+
     try {
+    
+      if (!user.username || !user.password || !user.country || !user.desc || !user.img || !user.isSeller || !user.phone) {
+        return setalert('Lütfen Tüm Alanları Doldurunuz');
+      }
+
+
+   
+
+
+
       const data=new FormData();
       data.append("file",user.img);
       data.append("upload_preset","fiverr");
@@ -39,8 +55,12 @@ const Register = () => {
       const imageUrl=imageResponse.data.secure_url;
       const response=await api.post("/auth/register",{...user,img:imageUrl});
       //console.log(response.data);
-      navigate('/');
-      return response.data;
+
+      if (response.data){
+        setalert("Kullanıcı Kaydı Başarılı")
+        return response.data;
+      }
+     
     } catch (error) {
       console.log(error);
     }
@@ -190,6 +210,8 @@ const Register = () => {
         >
           Kayıt Ol
         </button>
+
+        {alert && <AlertPopup message={alert} onClose={handleCloseAlert} />}
       </div>
     </div>
   );
