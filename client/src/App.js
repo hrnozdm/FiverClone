@@ -5,6 +5,7 @@ import Footer from "./components/footer/Footer";
 import Login from "./pages/login/Login";
 import Gigs from "./pages/gigs/Gigs";
 import Register from "./pages/register/Register"
+import Gig from "./pages/gig/Gig";
 
 function App() {
   
@@ -16,6 +17,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/gigs" element={<Gigs/>} />
+        <Route path="/gigs/:id" element={<Gig/>} />
         <Route path="/register" element={<Register/>} />
        </Routes>
        <Footer/>

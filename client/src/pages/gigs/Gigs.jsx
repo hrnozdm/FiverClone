@@ -1,8 +1,31 @@
 import React from "react";
-import { gigs } from "../../data";
 import { FaRegStar } from "react-icons/fa";
+import { useQuery } from "@tanstack/react-query";
+import api from "../../api/api";
 
 const Gigs = () => {
+  const { isPending, error, data } = useQuery({
+    queryKey: ['Gigs'],
+    queryFn: async () => {
+     try {
+          const response = await api.get('gig/allGig');
+          return response.data;
+     } catch (error) {
+          console.log(error);
+     }
+    }
+  });
+
+  if (isPending) {
+    return <div>Yükleniyor...</div>;
+  }
+
+  if (error) {
+    return <div>Hata: {error.message}</div>;
+  }
+
+  //console.log(data);
+
   return (
     <div className="container mx-auto my-8">
       <div className="mt-10 mb-10 flex justify-between items-center">
@@ -31,8 +54,8 @@ const Gigs = () => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        {gigs.map((gig) => (
-          <div key={gig.id} className="bg-white rounded-lg p-4 shadow-md">
+        {data.map((gig) => (
+          <div key={gig._id} className="bg-white rounded-lg p-4 shadow-md" onClick={()=>window.location=`/gigs/${gig._id}`}>
             <div className="flex items-center mb-4">
               <img
                 src={gig.img}
@@ -45,7 +68,7 @@ const Gigs = () => {
             <p className="text-xl font-semibold mb-2">{gig.username}</p>
             <p className="text-gray-600 mb-4">{gig.desc}</p>
             <div className="flex items-center mb-4">
-              {Array.from({ length: Number(gig.star) }, (_, index) => (
+              {Array.from({ length: Number(gig.starNumber) }, (_, index) => (
                 <FaRegStar key={index} className="text-yellow-500" />
               ))}
 

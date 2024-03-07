@@ -1,12 +1,11 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import api from "../../api/api";
-import { useNavigate } from 'react-router-dom';
 import AlertPopup from "../../components/alert/Alert";
 
 const Register = () => {
 
-  const navigate=useNavigate();
+
 
   const [user, setUser] = useState({
     username: '',
@@ -42,11 +41,6 @@ const Register = () => {
       if (!user.username || !user.password || !user.country || !user.desc || !user.img || !user.isSeller || !user.phone) {
         return setalert('Lütfen Tüm Alanları Doldurunuz');
       }
-
-
-   
-
-
 
       const data=new FormData();
       data.append("file",user.img);
