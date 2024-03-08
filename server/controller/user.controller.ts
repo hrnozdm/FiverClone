@@ -12,6 +12,18 @@ class UserController{
         
 
     }
+
+    public static async getUser(req:AuthRequest,res:Response){
+        try {
+            const user=await User.findById(req.params.userId);
+            if (user){
+              return res.status(200).json({'msg':'Kullanıcı bulundu',user});
+            }
+        } catch (error) {
+            return res.status(500).json(error);
+        }
+      
+    }
 }
 
 export default UserController;

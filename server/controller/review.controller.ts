@@ -2,6 +2,7 @@ import {Response } from 'express';
 import { AuthRequest } from '../middleware/jwt';
 import Review from '../models/review.model';
 import Gig from '../models/gig.model';
+import User from '../models/user.model';
 class ReviewController{
    public static async createReview(req:AuthRequest,res:Response){
     if (req.isSeller){
@@ -34,7 +35,8 @@ class ReviewController{
 
         const reviews=await Review.find({
             gidId:req.params.gigId,
-         });
+           
+         })
 
          if (reviews){
              return res.status(200).json({'msg':'Yorumlar getirildi',reviews});

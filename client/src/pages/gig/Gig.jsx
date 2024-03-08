@@ -53,24 +53,12 @@ const Gig = () => {
         <h2 className="text-3xl font-semibold mb-4">{data.title}</h2>
         <p className="text-gray-600 mb-4">{data.desc}</p>
         <div className="flex items-center mb-4">
-          <span className="text-yellow-500 text-lg">
+          <span className="flex">
             {Array.from({ length: data.starNumber }, (_, index) => (
-              <svg
-                key={index}
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                className="h-5 w-5 text-yellow-500"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 2a1 1 0 01.777.37l2.882 3.69 4.443.812a1 1 0 01.555 1.705l-3.203 3.121.755 4.419a1 1 0 01-1.455 1.055L10 15.334l-3.95 2.078a1 1 0 01-1.455-1.055l.755-4.419-3.203-3.121a1 1 0 01.555-1.705l4.443-.812L9.223 2.37A1 1 0 0110 2zm0 2a1 1 0 01.238.03l3.762.688-.678 3.978a1 1 0 01.29.964l.603 3.527-3.15-1.654a1 1 0 01-.94 0l-3.15 1.654.603-3.527a1 1 0 01.29-.964l-1.678-.307-1.678-.307L10 4.031A1 1 0 0110 4z"
-                  clipRule="evenodd"
-                />
-              </svg>
+                 <img key={index} src="/images/star.png" alt="" width={20} height={20}/>
             ))}
           </span>
-          <span className="ml-2 text-gray-600">({data.totalStars} Değerlendirme)</span>
+          
         </div>
         <p className="text-gray-600 mb-4">
           Kategori: {data.cat} | Fiyat: ${data.price} | Teslim Süresi: {data.deliveryTime}

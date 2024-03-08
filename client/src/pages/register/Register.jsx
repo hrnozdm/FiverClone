@@ -38,7 +38,7 @@ const Register = () => {
 
     try {
     
-      if (!user.username || !user.password || !user.country || !user.desc || !user.img || !user.isSeller || !user.phone) {
+      if (!user.username || !user.password || !user.country || !user.desc || !user.img || !user.phone) {
         return setalert('Lütfen Tüm Alanları Doldurunuz');
       }
 
