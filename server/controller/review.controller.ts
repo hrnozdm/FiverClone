@@ -35,7 +35,6 @@ class ReviewController{
 
         const reviews=await Review.find({
             gidId:req.params.gigId,
-           
          })
 
          if (reviews){

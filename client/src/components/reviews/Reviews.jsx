@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import api from '../../api/api';
 
 const Reviews = ({ gigId }) => {
@@ -36,18 +36,33 @@ const Reviews = ({ gigId }) => {
   });
 
 
-  // const {}=useQuery({
-  //   queryKey:[],
-  //    queryFn:async () => {
+  const [userData, setUserData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userPromises = data?.reviews?.map(async (review) => {
+          const userResponse = await api.get(`/user/getUser/${review.userId}`);
+          return userResponse.data;
+        }) || [];
+  
+        const resolvedUserData = await Promise.all(userPromises);
+        setUserData(resolvedUserData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    fetchData();
+  }, [data]);
 
   //    }
-  // })
 
  
 
   const mutation = useMutation({
-    mutationFn: () => {
-      return api.post(`/createReview/${gigId}`, review);
+    mutationFn: async () => {
+      return await api.post(`/createReview/${gigId}`, review);
     },
     onSuccess: async () => {
       await refetch();
@@ -63,15 +78,23 @@ const Reviews = ({ gigId }) => {
     return null;
   }
    
-  console.log(data);
+   console.log(userData);
   return (
     <div>
-      <div className="reviews mt-5 bg-white rounded-lg shadow-md p-4 mb-4">
+      <div className="reviews mt-8 ">
      
 
-        {data?.reviews?.map((review) => (
-          <div key={review._id} className="">
+        {data?.reviews?.map((review,index) => (
+          <div key={index} className="mt-5 bg-white rounded-lg shadow-md p-4 mb-4">
             <div>
+            
+            {userData[index] && (
+              <div className='flex'>
+                <img src={userData[index].user.img || "/images/noavatar.jpg"} alt="" width={30} height={20}/>
+                <p className='mt-2'>{userData[index].user.username}</p>
+              </div>
+              
+            )}
               <p className="text-lg font-semibold mb-2">Yorum: {review.desc}</p>
               <div className='flex'>
                 {Array.from({ length: review.star }).map((_, index) => (
@@ -82,6 +105,8 @@ const Reviews = ({ gigId }) => {
             </div>
           </div>
         ))}
+
+
       </div>
 
       <div className='addReview mt-5 '>
