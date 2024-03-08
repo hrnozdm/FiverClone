@@ -20,7 +20,7 @@ router.get('/gig/allGig/',GigController.allGig);
 router.get('/gig/allGig/:id',GigController.singleGig);
 router.post('/createReview/:gigId',verifyToken,ReviewController.createReview);
 router.get('/getReviews/:gigId',ReviewController.getReviews);
-router.get('/createOrder/:gigId',verifyToken,OrderController.createOrder);
+router.post('/createOrder/:gigId',verifyToken,OrderController.createOrder);
 
 
 export default router;

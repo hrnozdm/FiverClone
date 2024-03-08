@@ -56,7 +56,6 @@ const Reviews = ({ gigId }) => {
     fetchData();
   }, [data]);
 
-  //    }
 
  
 
