@@ -17,6 +17,7 @@ class AuthController{
         }
 
         public static async login(req:Request,res:Response){
+          
             try {
               const user=await User.findOne({username:req.body.username});
               

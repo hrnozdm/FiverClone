@@ -69,7 +69,9 @@ const Navbar = () => {
                                         <span>Add New Gigs</span>
                                     </>
                                 )}
-                                <span>Orders</span>
+                                <Link to="/orders">
+                                   <span>Orders</span>
+                                </Link>
                                 <span>Messages</span>
                                 <Link onClick={handleLogout}>
                                   <span>Logout</span>

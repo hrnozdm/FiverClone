@@ -6,22 +6,25 @@ import Login from "./pages/login/Login";
 import Gigs from "./pages/gigs/Gigs";
 import Register from "./pages/register/Register"
 import Gig from "./pages/gig/Gig";
+import Orders from "./pages/orders/Orders";
 
 function App() {
-  
   return (
-    <div>
+    <div className="min-h-screen flex flex-col">
       <Router>
-       <Navbar/>
-       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/gigs" element={<Gigs/>} />
-        <Route path="/gigs/:id" element={<Gig/>} />
-        <Route path="/register" element={<Register/>} />
-       </Routes>
-       <Footer/>
-       </Router>
+        <Navbar />
+        <div className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/gigs" element={<Gigs />} />
+            <Route path="/gigs/:id" element={<Gig />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/orders" element={<Orders />} />
+          </Routes>
+        </div>
+        <Footer />
+      </Router>
     </div>
   );
 }

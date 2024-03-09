@@ -19,9 +19,7 @@ const Reviews = ({ gigId }) => {
     setReview({ ...review, star: star })
   }
 
-  const handleSubmit = () => {
-    mutation.mutate();
-  }
+ 
 
   const { isPending, error, data, refetch } = useQuery({
     queryKey: ['Reviews', gigId],
@@ -75,6 +73,10 @@ const Reviews = ({ gigId }) => {
 
   if (!data) {
     return null;
+  }
+
+  const handleSubmit = () => {
+    mutation.mutate();
   }
    
    console.log(userData);

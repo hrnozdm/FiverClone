@@ -2,7 +2,6 @@ import {Response } from 'express';
 import { AuthRequest } from '../middleware/jwt';
 import Review from '../models/review.model';
 import Gig from '../models/gig.model';
-import User from '../models/user.model';
 class ReviewController{
    public static async createReview(req:AuthRequest,res:Response){
     if (req.isSeller){
